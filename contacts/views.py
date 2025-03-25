@@ -7,6 +7,10 @@ from django.shortcuts import render ,redirect
 
 from .models import Contact  ,Registrar
 from .forms import ContactModelForm
+
+
+def landing_page(request):
+     return render(request,'landing-page.html')
 def contactList(request):
     contacts=Contact.objects.all()
     context={

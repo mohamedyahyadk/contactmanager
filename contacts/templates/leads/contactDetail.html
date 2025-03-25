@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .contact{
-            background-color: aqua;
-        }
-    </style>
-</head>
-<body>
+
+    
+
+{% extends 'base.html' %}
+{% block content %}
     <a href="{% url 'contacts:contact-list' %}">go back to contact list</a>
     <h1>detail for :{{contacts.name}}</h1>
     <hr>
@@ -24,5 +16,5 @@
     <a href="{% url 'contacts:contact-update' contacts.pk %}">update </a> <br>
     <a href="{% url 'contacts:contact-delete' contacts.pk %}">delete </a>
 
-</body>
-</html>
+
+{% endblock content %}
