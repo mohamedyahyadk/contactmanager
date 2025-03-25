@@ -1,5 +1,5 @@
 from django.shortcuts import render ,redirect
-
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -7,36 +7,58 @@ from django.shortcuts import render ,redirect
 
 from .models import Contact  ,Registrar
 from .forms import ContactModelForm
+from django.views.generic import TemplateView ,ListView ,DetailView,CreateView ,UpdateView ,DeleteView
+
+# landding page :
+class LandingpageView(TemplateView):
+    template_name='landing-page.html'
+# def landing_page(request):
+#      return render(request,'landing-page.html')
 
 
-def landing_page(request):
-     return render(request,'landing-page.html')
-def contactList(request):
-    contacts=Contact.objects.all()
-    context={
-        "contacts":contacts
-    }
-    return render(request,"leads/contactList.html",context)
+# create :
+class ContactListView(ListView):
+    template_name="leads/contactList.html"
+    queryset=Contact.objects.all()
+    context_object_name='contacts'
 
-def contactDetail(request,pk):
-    contacts=Contact.objects.get(id=pk)
-    context={
-        "contacts":contacts
-    }
-    return render(request,"leads/contactDetail.html",context)
+# def contactList(request):
+#     contacts=Contact.objects.all()
+#     context={
+#         "contacts":contacts
+#     }
+#     return render(request,"leads/contactList.html",context)
 
+###detail:
+class ContactDetailView(DetailView):
+    template_name="leads/contactDetail.html"
+    queryset=Contact.objects.all()
+    context_object_name='contacts'
 
-def contactCreate(request):
-    form=ContactModelForm()
-    if request.method=="POST":
-        form=ContactModelForm(request.POST)
-        if form.is_valid():
-         form.save()
-         return redirect("/contacts")
-    context={
-        "form":form
-    }
-    return render(request,"leads/contactCreate.html",context)
+# def contactDetail(request,pk):
+#     contacts=Contact.objects.get(id=pk)
+#     context={
+#         "contacts":contacts
+#     }
+#     return render(request,"leads/contactDetail.html",context)
+
+class ContactCreateView(CreateView):
+    template_name="leads/contactCreate.html"
+    queryset=Contact.objects.all()
+    form_class=ContactModelForm
+    success_url=reverse_lazy('contacts:contact-list')
+
+# def contactCreate(request):
+#     form=ContactModelForm()
+#     if request.method=="POST":
+#         form=ContactModelForm(request.POST)
+#         if form.is_valid():
+#          form.save()
+#          return redirect("/contacts")
+#     context={
+#         "form":form
+#     }
+#     return render(request,"leads/contactCreate.html",context)
     
 # def contactCreate(request):
 #     form=ContactForm()
@@ -58,20 +80,26 @@ def contactCreate(request):
 #         "form":form
 #     }
 #     return render(request,"leads/contactCreate.html",context)
+class ContactUpdateView(UpdateView):
+    template_name="leads/contactUpdate.html"
+    queryset=Contact.objects.all()
+    form_class=ContactModelForm
+    context_object_name='contacts'
+    success_url=reverse_lazy('contacts:contact-list')
 
-def contactUpdate(request,pk):
-    contacts=Contact.objects.get(id=pk)
-    form=ContactModelForm(instance=contacts)
-    if request.method=="POST":
-        form=ContactModelForm(request.POST,instance=contacts)
-        if form.is_valid():
-            form.save()
-            return redirect("/contacts")
-    context={
-        "form":form,
-        "contacts":contacts
-    }
-    return render(request,"leads/contactUpdate.html",context)
+# def contactUpdate(request,pk):
+#     contacts=Contact.objects.get(id=pk)
+#     form=ContactModelForm(instance=contacts)
+#     if request.method=="POST":
+#         form=ContactModelForm(request.POST,instance=contacts)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("/contacts")
+#     context={
+#         "form":form,
+#         "contacts":contacts
+#     }
+#     return render(request,"leads/contactUpdate.html",context)
 
 # def contactUpdate(request,pk):
 #     contacts=Contact.objects.get(id=pk)
@@ -95,10 +123,15 @@ def contactUpdate(request,pk):
 #     }
 #     return render(request,"leads/contactUpdate.html",context)
 
-def contactDelete(request,pk):
-    contacts=Contact.objects.get(id=pk)
-    contacts.delete()
-    return redirect("/contacts")
+class ContactDeleteView(DeleteView):
+    template_name="leads/contactDelete.html"
+    queryset=Contact.objects.all()
+    context_object_name='contacts'
+    success_url=reverse_lazy('contacts:contact-list')
+# def contactDelete(request,pk):
+#     contacts=Contact.objects.get(id=pk)
+#     contacts.delete()
+#     return redirect("/contacts")
    
 
 
