@@ -129,3 +129,9 @@ AUTH_USER_MODEL='contacts.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 
 EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
+# 
+# Redirect after login
+LOGIN_REDIRECT_URL = '/'  # Redirect to home page
+
+# Redirect after logout
+LOGOUT_REDIRECT_URL = '/'  # Redirect to home page

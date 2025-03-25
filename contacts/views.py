@@ -6,8 +6,17 @@ from django.urls import reverse_lazy
 from django.core.mail import send_mail
 
 from .models import Contact  ,Registrar
-from .forms import ContactModelForm
+from .forms import ContactModelForm ,UserCreationForm
 from django.views.generic import TemplateView ,ListView ,DetailView,CreateView ,UpdateView ,DeleteView
+
+
+
+class SignupView(CreateView):
+    template_name="registration/signup.html"
+    form_class=UserCreationForm
+    success_url=reverse_lazy('login')
+   
+
 
 # landding page :
 class LandingpageView(TemplateView):
@@ -44,7 +53,6 @@ class ContactDetailView(DetailView):
 
 class ContactCreateView(CreateView):
     template_name="leads/contactCreate.html"
-    queryset=Contact.objects.all()
     form_class=ContactModelForm
     success_url=reverse_lazy('contacts:contact-list')
     def form_valid(self, form):

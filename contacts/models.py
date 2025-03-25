@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class User(AbstractUser):
     pass
-
 class Contact(models.Model):
     name=models.CharField(max_length=30)
     email=models.EmailField(unique=True)
