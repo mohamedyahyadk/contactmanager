@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/contacts">go back to contact list</a>
+    <a href="{% url 'contacts:contact-list' %}">go back to contact list</a>
     <h1>create new contact</h1>
     <form  method="post">
          {% csrf_token %}

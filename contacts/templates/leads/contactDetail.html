@@ -11,8 +11,8 @@
     </style>
 </head>
 <body>
-    <a href="/contacts/">go back to contact list</a>
-    <h1>detail for :{{contact.name}}</h1>
+    <a href="{% url 'contacts:contact-list' %}">go back to contact list</a>
+    <h1>detail for :{{contacts.name}}</h1>
     <hr>
     <div class="contact">
         <p>{{ contacts.name }}</p>
@@ -21,8 +21,8 @@
 
     </div>
     <hr>
-    <a href="/contacts/{{contacts.pk}}/update">update </a> <br>
-    <a href="/contacts/{{contacts.pk}}/delete">delete </a>
+    <a href="{% url 'contacts:contact-update' contacts.pk %}">update </a> <br>
+    <a href="{% url 'contacts:contact-delete' contacts.pk %}">delete </a>
 
 </body>
 </html>
