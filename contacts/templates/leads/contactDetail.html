@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .contact{
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <a href="/contacts/">go back to contact list</a>
+    <h1>detail for :{{contact.name}}</h1>
+    <hr>
+    <div class="contact">
+        <p>{{ contacts.name }}</p>
+        <p>{{ contacts.email }}</p>
+        <p>{{ contacts.phone }}</p>
+
+    </div>
+    <hr>
+    <a href="/contacts/{{contacts.pk}}/update">update </a> <br>
+    <a href="/contacts/{{contacts.pk}}/delete">delete </a>
+
+</body>
+</html>
