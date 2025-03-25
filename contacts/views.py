@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 
 # Create your views here.
 
-
+from django.core.mail import send_mail
 
 from .models import Contact  ,Registrar
 from .forms import ContactModelForm
@@ -47,6 +47,14 @@ class ContactCreateView(CreateView):
     queryset=Contact.objects.all()
     form_class=ContactModelForm
     success_url=reverse_lazy('contacts:contact-list')
+    def form_valid(self, form):
+        send_mail(
+            subject="a contact has been created ",
+            message="go to the site to see the new contact",
+            from_email="test@test.com",
+            recipient_list=["test2@test.com"]
+        )
+        return super().form_valid(form)
 
 # def contactCreate(request):
 #     form=ContactModelForm()
